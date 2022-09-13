@@ -1,10 +1,9 @@
-import logger from "../../../../utils/logger"
+import logger from "../../../../utils/logger";
 
 import { User } from "../../../../schemas/User";
 
-
 class ShowAllUsersUseCase {
-    async execute(): Promise<[]> {
+    async execute() {
         try {
             const users = await User.find();
 

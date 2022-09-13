@@ -1,7 +1,6 @@
 import logger from "../../../../utils/logger"
 
 import { User } from "../../../../schemas/User";
-import IUser from "interfaces/IUser";
 
 interface IRequest {
     id: string;
@@ -10,7 +9,7 @@ interface IRequest {
 class ShowUserUseCase {
     async execute({
         id
-    }: IRequest): Promise<IUser> {
+    }: IRequest) {
         try {
             const user = await User.findById(id);
 

@@ -10,7 +10,7 @@ interface IRequest {
 class DeleteUserUseCase {
     async execute({
         id
-    }: IRequest): Promise<String> {
+    }: IRequest) {
         try {
             await User.deleteOne({ id })
             return "User Successfully Deleted.";

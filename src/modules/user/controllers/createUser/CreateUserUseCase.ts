@@ -1,7 +1,8 @@
+import { Document, model } from "mongoose";
+
 import logger from "../../../../utils/logger"
 
 import { User } from "../../../../schemas/User";
-import IUser from "../../../../interfaces/IUser";
 
 interface IRequest {
     name: string;
@@ -14,19 +15,15 @@ class CreateUserUseCase {
         name,
         email,
         password
-    }: IRequest): Promise<IUser> {
+    }: IRequest) {
         try {
-            await User.create({
+            const user = await User.create({
                 name,
                 email,
                 password
-            })
+            });
     
-            return {
-                name,
-                email,
-                password
-            };
+            return user;
         } catch (error) {
             logger.error("Error:", error)
         }

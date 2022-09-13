@@ -1,7 +1,6 @@
 import logger from "../../../../utils/logger"
 
 import { User } from "../../../../schemas/User";
-import IUser from "../../../../interfaces/IUser";
 
 interface IRequest {
     name: string;
@@ -14,19 +13,15 @@ class UpdateUserUseCase {
         name,
         email,
         password
-    }: IRequest): Promise<IUser> {
+    }: IRequest) {
         try {
-            await User.updateOne({
+            const user = await User.updateOne({
                 name,
                 email,
                 password
             })
     
-            return {
-                name,
-                email,
-                password
-            };
+            return user;
         } catch (error) {
             logger.error("Error:", error)
         }
