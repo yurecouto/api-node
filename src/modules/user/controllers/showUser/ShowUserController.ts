@@ -1,23 +1,17 @@
 import { Request, Response } from "express";
 
-import { CreateUserUseCase } from "./ShowUserUseCase";
+import { ShowUserUseCase } from "./ShowUserUseCase";
 
-class CreateAlertRuleController {
+class ShowUserController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { name } = request.body.name;
-    const { email } = request.body.email;
-    const { password } = request.body.password;
+    const { id } = request.params;
 
-    const createAlertRuleUseCase = new CreateUserUseCase();
+    const showUserUseCase = new ShowUserUseCase();
 
-    const createUser = await createAlertRuleUseCase.execute({
-      name,
-      email,
-      password
-    });
+    const showUser = await showUserUseCase.execute({ id });
 
-    return response.status(201).json(createUser);
+    return response.status(201).json(showUser);
   }
 }
 
-export { CreateAlertRuleController };
+export { ShowUserController };

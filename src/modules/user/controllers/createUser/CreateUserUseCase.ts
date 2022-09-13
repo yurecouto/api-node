@@ -1,7 +1,7 @@
-import { User } from "../../../../schemas/user.shcema";
-import { PrismaClient } from '@prisma/client'
+import logger from "../../../../utils/logger"
 
-const prisma = new PrismaClient()
+import { User } from "../../../../schemas/User";
+import IUser from "../../../../interfaces/IUser";
 
 interface IRequest {
     name: string;
@@ -14,16 +14,22 @@ class CreateUserUseCase {
         name,
         email,
         password
-    }: IRequest): Promise<User> {
-        const user = await prisma.user.create({
-            data: {
+    }: IRequest): Promise<IUser> {
+        try {
+            await User.create({
                 name,
                 email,
                 password
-            }
-        })
-
-        return user;
+            })
+    
+            return {
+                name,
+                email,
+                password
+            };
+        } catch (error) {
+            logger.error("Error:", error)
+        }
     }
 }
 

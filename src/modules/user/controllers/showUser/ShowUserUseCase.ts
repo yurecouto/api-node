@@ -1,19 +1,24 @@
-import { User } from "../../../../schemas/user.shcema";
+import logger from "../../../../utils/logger"
+
+import { User } from "../../../../schemas/User";
+import IUser from "interfaces/IUser";
 
 interface IRequest {
-    name: string;
-    email: string;
-    password: string;
+    id: string;
 }
 
-class CreateUserUseCase {
+class ShowUserUseCase {
     async execute({
-        
-    }: IRequest): Promise<User> {
+        id
+    }: IRequest): Promise<IUser> {
+        try {
+            const user = await User.findById(id);
 
-
-        return ;
+            return user;
+        } catch (error) {
+            logger.error(error)
+        }
     }
 }
 
-export { CreateUserUseCase };
+export { ShowUserUseCase };

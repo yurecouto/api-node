@@ -1,7 +1,5 @@
-class User {
+export default class IUser {
     name: string;
     email: string;
     password: string;
 }
-  
-export { User };

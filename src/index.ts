@@ -3,6 +3,7 @@ import express from "express";
 import logger from "./utils/logger";
 
 import { router } from "./routes/index.routes";
+import connect from "./utils/connect";
 
 const port = process.env.PORT;
 
@@ -14,4 +15,5 @@ app.use(router);
 
 app.listen(port, async () => {
     logger.info(`API started at: http://localhost:${port}/`);
+    connect()
 });
