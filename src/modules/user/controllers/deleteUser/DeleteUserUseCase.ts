@@ -15,7 +15,7 @@ class DeleteUserUseCase {
             await User.deleteOne({ id })
             return "User Successfully Deleted.";
         } catch (error) {
-            logger.error("Error:", error)
+            logger.error(error)
         }
     }
 }

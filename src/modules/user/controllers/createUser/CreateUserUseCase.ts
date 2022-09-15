@@ -25,7 +25,7 @@ class CreateUserUseCase {
     
             return user;
         } catch (error) {
-            logger.error("Error:", error)
+            logger.error(error)
         }
     }
 }
