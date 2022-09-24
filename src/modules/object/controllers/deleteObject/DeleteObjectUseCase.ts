@@ -7,16 +7,16 @@ interface IRequest {
 }
 
 class DeleteObjectUseCase {
-    async execute({
-        id
-    }: IRequest) {
-        try {
-            await ObjectTest.deleteOne({ id })
-            return "Object Successfully Deleted.";
-        } catch (error) {
-            logger.error(error)
-        }
+  async execute({
+      id
+  }: IRequest) {
+    try {
+      await ObjectTest.deleteOne({ id })
+      return 201;
+    } catch (error) {
+      return 401
     }
+  }
 };
 
 export { DeleteObjectUseCase };

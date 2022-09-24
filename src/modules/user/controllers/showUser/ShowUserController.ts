@@ -10,6 +10,12 @@ class ShowUserController {
 
     const showUser = await showUserUseCase.execute({ id });
 
+    if (showUser === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Show User." })
+        .end();
+    };
+
     return response.status(201).json(showUser);
   }
 }

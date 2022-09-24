@@ -6,16 +6,22 @@ class CreateObjectController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { name, array, object, number } = request.body;
 
-    const createAlertRuleUseCase = new CreateObjectUseCase();
+    const createObjectUseCase = new CreateObjectUseCase();
 
-    const createUser = await createAlertRuleUseCase.execute({
-      name, 
-      array, 
-      object, 
+    const createObject = await createObjectUseCase.execute({
+      name,
+      array,
+      object,
       number
     });
 
-    return response.status(201).json(createUser);
+    if (createObject === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Create Object." })
+        .end();
+    }
+
+    return response.status(201).json(createObject);
   }
 };
 

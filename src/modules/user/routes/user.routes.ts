@@ -22,12 +22,12 @@ userRoutes.post(
 );
 
 userRoutes.patch(
-    "/update",
+    "/update/:id",
     updateUserController.handle,
 );
 
 userRoutes.delete(
-    "/delete",
+    "/delete/:id",
     deleteUserController.handle,
 );
 

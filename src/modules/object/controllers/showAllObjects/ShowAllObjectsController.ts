@@ -9,6 +9,12 @@ class ShowAllObjectsController {
 
     const showObjects = await showObjectsUseCase.execute();
 
+    if (showObjects === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Show Objects." })
+        .end();
+    }
+
     return response.status(201).json(showObjects);
   }
 }

@@ -10,6 +10,12 @@ class ShowObjectController {
 
     const showObject = await showObjectUseCase.execute({ id });
 
+    if (showObject === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Show Object." })
+        .end();
+    }
+
     return response.status(201).json(showObject);
   }
 }

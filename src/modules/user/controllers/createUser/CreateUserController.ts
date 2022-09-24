@@ -6,13 +6,19 @@ class CreateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
 
-    const createAlertRuleUseCase = new CreateUserUseCase();
+    const createUserUseCase = new CreateUserUseCase();
 
-    const createUser = await createAlertRuleUseCase.execute({
+    const createUser = await createUserUseCase.execute({
       name,
       email,
       password
     });
+
+    if (createUser === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Create User." })
+        .end();
+    };
 
     return response.status(201).json(createUser);
   }

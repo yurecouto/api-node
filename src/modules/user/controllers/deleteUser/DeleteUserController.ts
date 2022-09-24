@@ -10,7 +10,15 @@ class DeleteUserController {
 
     const deleteUser = await deleteUserUseCase.execute({ id });
 
-    return response.status(201).json(deleteUser);
+    if (deleteUser === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Delete User." })
+        .end();
+    }
+
+    return response.status(deleteUser).json({
+      message: "User Successfully Deleted."
+    });
   }
 }
 

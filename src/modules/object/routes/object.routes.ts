@@ -1,4 +1,6 @@
 import { Router } from "express";
+import verifyToken from "../../../middlewares/verifyToken";
+
 
 import { CreateObjectController } from "../controllers/createObject/CreateObjectController";
 import { UpdateObjectController } from "../controllers/updateObject/UpdateObjectController";
@@ -14,7 +16,7 @@ const deleteObjectController = new DeleteObjectController();
 const showObjectController = new ShowObjectController();
 const showAllObjectsController = new ShowAllObjectsController();
 
-// objectRoutes.use(Middlewares);
+objectRoutes.use(verifyToken);
 
 objectRoutes.post(
     "/create",
@@ -22,7 +24,7 @@ objectRoutes.post(
 );
 
 objectRoutes.patch(
-    "/update",
+    "/update/:id",
     updateObjectController.handle,
 );
 

@@ -3,21 +3,21 @@ import logger from "../../../../utils/logger"
 import { ObjectTest } from "../../../../schemas/ObjectTest";
 
 interface IRequest {
-    id: string;
+  id: string;
 };
 
 class ShowObjectUseCase {
-    async execute({
-        id
-    }: IRequest) {
-        try {
-            const object = await ObjectTest.findById(id);
+  async execute({
+    id
+  }: IRequest) {
+    try {
+      const object = await ObjectTest.findById(id);
 
-            return object;
-        } catch (error) {
-            logger.error(error)
-        }
+      return object;
+    } catch (error) {
+      return 401;
     }
+  }
 };
 
 export { ShowObjectUseCase };

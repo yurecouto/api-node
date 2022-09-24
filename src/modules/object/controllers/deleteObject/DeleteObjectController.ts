@@ -10,7 +10,15 @@ class DeleteObjectController {
 
     const deleteObject = await deleteObjectUseCase.execute({ id });
 
-    return response.status(201).json(deleteObject);
+    if (deleteObject === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Delete Object." })
+        .end();
+    }
+
+    return response.status(deleteObject).json({
+      message: "Object Successfully Deleted."
+    });
   }
 };
 

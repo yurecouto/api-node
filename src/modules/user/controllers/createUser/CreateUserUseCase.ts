@@ -5,29 +5,29 @@ import logger from "../../../../utils/logger"
 import { User } from "../../../../schemas/User";
 
 interface IRequest {
-    name: string;
-    email: string;
-    password: string;
+  name: string;
+  email: string;
+  password: string;
 }
 
 class CreateUserUseCase {
-    async execute({
+  async execute({
+    name,
+    email,
+    password
+  }: IRequest) {
+    try {
+      const user = await User.create({
         name,
         email,
         password
-    }: IRequest) {
-        try {
-            const user = await User.create({
-                name,
-                email,
-                password
-            });
-    
-            return user;
-        } catch (error) {
-            logger.error(error)
-        }
+      });
+
+      return user;
+    } catch (error) {
+      return 401;
     }
+  }
 }
 
 export { CreateUserUseCase };
