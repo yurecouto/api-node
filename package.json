@@ -10,6 +10,7 @@
     "@prisma/client": "^4.3.1",
     "@types/mongoose": "^5.11.97",
     "bcrypt": "^5.0.1",
+    "cluster": "^0.7.7",
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
