@@ -1,10 +1,13 @@
 import bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
 
-import { User } from "../../../schemas/User";
+import { User, UserToken } from "../../../schemas/User";
 
-import logger from "../../../utils/logger"
-import auth from "../../../auth/config/auth";
+import logger from "../../../utils/logger";
+import {
+  generateAccessToken,
+  generateRefreshToken
+} from "../../../utils/tokenGenerator";
+
 
 interface IRequest {
   email: string;
@@ -23,14 +26,21 @@ class LoginUseCase {
 
       if (checkPassword) {
         try {
-          const secret = auth.secret_token;
-          const token = jwt.sign({ id: user.id, }, secret, {
-            expiresIn: auth.expires_in_token
+          const accessToken = generateAccessToken(user.id);
+          const refreshToken = generateRefreshToken(user.id);
+
+          await UserToken.create({
+            userId: user.id,
+            refresh: refreshToken
           });
 
-          return ({ user, token });
+          return ({
+            user,
+            accessToken,
+            refreshToken
+          });
         } catch (error) {
-            logger.error(error);
+          logger.error(error);
         };
       } else {
         return 401;

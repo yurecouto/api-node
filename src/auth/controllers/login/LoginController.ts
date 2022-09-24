@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 
 import { LoginUseCase } from "./LoginUseCase";
+import { User, UserToken } from "../../../schemas/User";
+
+import {
+  generateAccessToken,
+  generateRefreshToken
+} from "../../../utils/tokenGenerator";
 
 class LoginController {
   async handle(request: Request, response: Response): Promise<Response> {
@@ -36,4 +42,53 @@ class LoginController {
   }
 };
 
-export { LoginController };
+class RefreshTokenController {
+  async handle(request: Request, response: Response): Promise<Response> {
+    const refreshToken = request.headers['x-refresh-token'];
+    const refreshTokens = await UserToken.find();
+
+    if (!refreshToken) {
+      response.status(401).json({ error: "Token is Missing." })
+    };
+
+    const exists = refreshTokens.map((token) => {
+      if (token.refresh === refreshToken) {
+        return true;
+      }
+    });
+
+    if (!exists) {
+      response.status(401).json({ error: "Invalid Token." })
+    };
+
+    const userId = refreshTokens.map((token) => {
+      if (token.refresh === refreshToken) {
+        return token.userId;
+      }
+    }).toString();
+
+    const newAccessToken = generateAccessToken(userId);
+    const newRefreshToken = generateRefreshToken(userId);
+
+    await UserToken.create({
+      userId: userId,
+      refresh: newRefreshToken
+    });
+
+    await UserToken.deleteOne({
+      refresh: refreshToken
+    });
+
+
+
+    return response.status(201).json({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken
+    });
+  }
+};
+
+export {
+  LoginController,
+  RefreshTokenController
+};

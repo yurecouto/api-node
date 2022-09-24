@@ -15,7 +15,7 @@ const deleteUserController = new DeleteUserController();
 const showUserController = new ShowUserController();
 const showAllUsersController = new ShowAllUsersController();
 
-//userRoutes.use(verifyToken);
+userRoutes.use(verifyToken);
 
 userRoutes.post(
   "/create",

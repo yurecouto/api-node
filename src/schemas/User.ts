@@ -8,4 +8,12 @@ const userSchema = new Schema ({
 });
 
 const User = mongoose.model("User", userSchema);
-export { User };
+
+const userTokenSchema = new Schema ({
+  userId: { type: String, unique: false, require: true },
+  refresh: { type: String, unique: false, require: true },
+});
+
+const UserToken = mongoose.model("UserToken", userTokenSchema);
+
+export { User, UserToken };
