@@ -1,4 +1,3 @@
-import logger from "../../../../utils/logger"
 import { ObjectTest } from "../../../../schemas/ObjectTest";
 
 interface IRequest {
@@ -30,7 +29,7 @@ class UpdateObjectUseCase {
 
       return user;
     } catch (error) {
-      logger.error(error)
+      return 401;
     }
   }
 }

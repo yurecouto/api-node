@@ -1,5 +1,3 @@
-import logger from "../../../../utils/logger"
-
 import { User } from "../../../../schemas/User";
 
 interface IRequest {

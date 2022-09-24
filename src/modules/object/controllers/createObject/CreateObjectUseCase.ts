@@ -1,4 +1,3 @@
-import logger from "../../../../utils/logger"
 import { ObjectTest } from "../../../../schemas/ObjectTest";
 
 interface IRequest {

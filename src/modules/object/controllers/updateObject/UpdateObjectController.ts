@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 
-import logger from "../../../../utils/logger";
-
 import { UpdateObjectUseCase } from "./UpdateObjectUseCase";
 
 class UpdateObjectController {
@@ -11,7 +9,7 @@ class UpdateObjectController {
 
     const updateObjectUseCase = new UpdateObjectUseCase();
 
-    const updateUser = await updateObjectUseCase.execute({
+    const updateObject = await updateObjectUseCase.execute({
       id,
       name,
       array,
@@ -19,7 +17,13 @@ class UpdateObjectController {
       number
     });
 
-    return response.status(201).json(updateUser);
+    if (updateObject === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Update Object." })
+        .end();
+    };
+
+    return response.status(201).json(updateObject);
   }
 }
 

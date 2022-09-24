@@ -4,7 +4,6 @@ import { ShowAllObjectsUseCase } from "./ShowAllObjectsUseCase";
 
 class ShowAllObjectsController {
   async handle(request: Request, response: Response): Promise<Response> {
-
     const showObjectsUseCase = new ShowAllObjectsUseCase();
 
     const showObjects = await showObjectsUseCase.execute();

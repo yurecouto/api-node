@@ -1,7 +1,6 @@
 import { Router } from "express";
 import verifyToken from "../../../middlewares/verifyToken";
 
-
 import { CreateObjectController } from "../controllers/createObject/CreateObjectController";
 import { UpdateObjectController } from "../controllers/updateObject/UpdateObjectController";
 import { DeleteObjectController } from "../controllers/deleteObject/DeleteObjectController";

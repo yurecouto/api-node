@@ -1,5 +1,3 @@
-import logger from "../../../../utils/logger"
-
 import { User } from "../../../../schemas/User";
 
 interface IRequest {
@@ -26,7 +24,7 @@ class UpdateUserUseCase {
 
       return user;
     } catch (error) {
-      logger.error(error)
+      return 401;
     }
   }
 }

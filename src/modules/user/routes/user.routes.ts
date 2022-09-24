@@ -1,4 +1,5 @@
 import { Router } from "express";
+import verifyToken from "../../../middlewares/verifyToken";
 
 import { CreateUserController } from "../controllers/createUser/CreateUserController";
 import { UpdateUserController } from "../controllers/updateUser/UpdateUserController";
@@ -14,31 +15,31 @@ const deleteUserController = new DeleteUserController();
 const showUserController = new ShowUserController();
 const showAllUsersController = new ShowAllUsersController();
 
-// userRoutes.use(Middlewares);
+//userRoutes.use(verifyToken);
 
 userRoutes.post(
-    "/create",
-    createUserController.handle,
+  "/create",
+  createUserController.handle,
 );
 
 userRoutes.patch(
-    "/update/:id",
-    updateUserController.handle,
+  "/update/:id",
+  updateUserController.handle,
 );
 
 userRoutes.delete(
-    "/delete/:id",
-    deleteUserController.handle,
+  "/delete/:id",
+  deleteUserController.handle,
 );
 
 userRoutes.get(
-    "/show/:id",
-    showUserController.handle,
+  "/show/:id",
+  showUserController.handle,
 );
 
 userRoutes.get(
-    "/showall",
-    showAllUsersController.handle,
+  "/showall",
+  showAllUsersController.handle,
 );
 
 export { userRoutes };

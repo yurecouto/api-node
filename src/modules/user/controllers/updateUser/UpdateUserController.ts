@@ -16,6 +16,12 @@ class UpdateUserController {
       password
     });
 
+    if (updateUser === 401) {
+      return response.status(401)
+        .send({ message: "Failed in Update User." })
+        .end();
+    };
+
     return response.status(201).json(updateUser);
   }
 }

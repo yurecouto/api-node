@@ -1,7 +1,4 @@
-import { Document, model } from "mongoose";
-
-import logger from "../../../../utils/logger"
-
+import bcrypt from "bcrypt";
 import { User } from "../../../../schemas/User";
 
 interface IRequest {
@@ -17,10 +14,13 @@ class CreateUserUseCase {
     password
   }: IRequest) {
     try {
+      const salt = await bcrypt.genSalt(12);
+      const hashPass = await bcrypt.hash(password, salt);
+
       const user = await User.create({
         name,
         email,
-        password
+        password: hashPass
       });
 
       return user;
