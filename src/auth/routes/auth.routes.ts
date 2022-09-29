@@ -4,14 +4,15 @@ import {
   LoginController,
   RefreshTokenController
 } from "../controllers/login/LoginController";
-// import { LogoutController } from "../controllers/logout/LogoutController";
+
+import { LogoutController } from "../controllers/logout/LogoutController";
 
 
 const authRoutes = Router();
 
 const loginController = new LoginController();
+const logoutController = new LogoutController();
 const refreshTokenController = new RefreshTokenController();
-// const logoutController = new LogoutController();
 
 
 // userRoutes.use(Middlewares);
@@ -21,10 +22,10 @@ authRoutes.post(
   loginController.handle,
 );
 
-// authRoutes.post(
-//   "/logout",
-//   logoutController.handle,
-// );
+authRoutes.post(
+  "/logout",
+  logoutController.handle,
+);
 
 authRoutes.post(
   "/token",
