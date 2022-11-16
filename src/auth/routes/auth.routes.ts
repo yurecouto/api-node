@@ -27,7 +27,7 @@ authRoutes.post(
   logoutController.handle,
 );
 
-authRoutes.post(
+authRoutes.get(
   "/token",
   refreshTokenController.handle
 )

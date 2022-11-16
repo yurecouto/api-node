@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { LoginUseCase } from "./LoginUseCase";
-import { User, UserToken } from "../../../schemas/User";
+import { UserToken } from "../../../schemas/User";
 
 import {
   generateAccessToken,
@@ -44,7 +44,7 @@ class LoginController {
 
 class RefreshTokenController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const refreshToken = request.headers['x-refresh-token'];
+    const refreshToken = request.headers["x-refresh-token"];
     const refreshTokens = await UserToken.find();
 
     if (!refreshToken) {
@@ -78,8 +78,6 @@ class RefreshTokenController {
     await UserToken.deleteOne({
       refresh: refreshToken
     });
-
-
 
     return response.status(201).json({
       accessToken: newAccessToken,
