@@ -61,11 +61,7 @@ class RefreshTokenController {
       response.status(401).json({ error: "Invalid Token." })
     };
 
-    const userId = refreshTokens.map((token) => {
-      if (token.refresh === refreshToken) {
-        return token.userId;
-      }
-    }).toString();
+    const userId = refreshTokens[0].userId;
 
     const newAccessToken = generateAccessToken(userId);
     const newRefreshToken = generateRefreshToken(userId);
@@ -75,8 +71,10 @@ class RefreshTokenController {
       refresh: newRefreshToken
     });
 
-    await UserToken.deleteOne({
-      refresh: refreshToken
+    await UserToken.findOneAndDelete({
+      where: {
+        refresh: refreshToken
+      }
     });
 
     return response.status(201).json({
